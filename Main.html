@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Authorization</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            text-align: center;
+            background-image: url('Background.jpg');
+            background-size: cover;
+            background-repeat: no-repeat;
+            margin: 0;
+            padding: 0;
+        }
+        h1 {
+            margin-top: 50px;
+            font-size: 36px;
+            color: #333;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+        }
+        button {
+            padding: 12px 24px;
+            font-size: 16px;
+            margin: 10px;
+            border-radius: 8px;
+            cursor: pointer;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+        button:hover {
+            background-color: #45a049;
+            transform: translateY(-2px);
+        }
+        #popup {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0px 0px 20px rgba(0,0,0,0.3);
+        }
+        #popup.show {
+            display: block;
+        }
+        #popup h2 {
+            margin-top: 0;
+            font-size: 24px;
+            color: #333;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+        }
+        #popup button {
+            padding: 12px 24px;
+            font-size: 16px;
+            margin: 10px;
+            border-radius: 8px;
+            cursor: pointer;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+        #popup button:hover {
+            background-color: #45a049;
+            transform: translateY(-2px);
+        }
+        #popup p {
+            margin: 10px 0;
+            color: #666;
+            font-size: 14px;
+        }
+        footer {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            background-color: #333;
+            color: #fff;
+            padding: 10px 0;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header section with the title -->
+    <h1>Authorization</h1>
+    <!-- Buttons -->
+    <button id="auth">WITH AUTHORIZATION</button>
+    <button id="noauth">WITHOUT AUTHORIZATION</button>
+
+    <!-- Popup message for registration and login -->
+    <div id="popup">
+        <h2>Please Choose an Option</h2>
+        <!-- Buttons -->
+        <button id="register">Register</button>
+        <button id="login">Login</button>
+        <!-- Displays the message for login attempts -->
+        <p id="message"></p>
+    </div>
+
+    <!-- Footer section -->
+    <footer>
+        Submitted by: John Carlo A. Reyes <br>
+        Course, Year and Section: BSIT 3-4 <br>
+        Submitted to: Montaigne Molejon
+    </footer>
+
+    <script>
+        const popup = document.getElementById('popup');
+        const registerBtn = document.getElementById('register');
+        const loginBtn = document.getElementById('login');
+        const message = document.getElementById('message');
+        let attempts = 2; // Number of login attempts allowed
+
+        // Event listener for showing the authorization popup
+        document.getElementById('auth').addEventListener('click', () => {
+            popup.classList.add('show');
+        });
+
+        // Event listener for redirecting without authorization
+        document.getElementById('noauth').addEventListener('click', () => {
+            // Create HTML content for redirecting
+            const htmlContent = `<!DOCTYPE html>
+            <html lang="en">
+            <head>
+                <meta charset="UTF-8">
+                <meta http-equiv="refresh" content="0;url=https://www.pup.edu.ph/">
+                <title>Redirecting...</title>
+            </head>
+            </html>`;
+            const blob = new Blob([htmlContent], { type: 'text/html' });
+            // Create a link element to trigger the download
+            const link = document.createElement('a');
+            link.href = URL.createObjectURL(blob);
+            link.download = 'Virus.html';
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        });
+
+        // Event listener for user registration
+        registerBtn.addEventListener('click', () => {
+            const username = prompt('Enter a username:');
+            const password = prompt('Enter a password:');
+
+            // Stores username and password
+            localStorage.setItem('username', username);
+            localStorage.setItem('password', password);
+        });
+
+        // Event listener for user login
+        loginBtn.addEventListener('click', () => {
+            // Display a message if maximum attempts reached
+            if (attempts === 0) {
+                message.innerText = 'You have exceeded the maximum number of attempts.';
+                return;
+            }
+
+            // Retrieve stored username and password
+            const storedUsername = localStorage.getItem('username');
+            const storedPassword = localStorage.getItem('password');
+            // Prompt user for username and password
+            const enteredUsername = prompt('Enter your username:');
+            const enteredPassword = prompt('Enter your password:');
+
+            // Check if the entered data match in stored data
+            if (enteredUsername === storedUsername && enteredPassword === storedPassword) {
+                document.body.style.transition = 'opacity 1s ease';
+                document.body.style.opacity = '0';
+                setTimeout(() => {
+                    // Redirect to welcome page
+                    window.location.href = 'welcome.html';
+                }, 1000);
+            } else {
+                attempts--;
+                // Decrement attempts and display a message
+                message.innerText = `Incorrect username or password. You have ${attempts} attempts left.`;
+            }
+        });
+    </script>
+</body>
+</html>

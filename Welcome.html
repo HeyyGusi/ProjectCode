@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-image: url('Background.jpg');
+            background-size: cover;
+            background-repeat: no-repeat;
+            margin: 0;
+            padding-bottom: 60px;
+        }
+        h1 {
+            color: #333;
+        }
+        p {
+            color: #666;
+        }
+        .container {
+            margin-top: 100px;
+        }
+        button {
+            padding: 12px 24px;
+            font-size: 16px;
+            border-radius: 8px;
+            cursor: pointer;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+        button:hover {
+            background-color: #45a049;
+            transform: translateY(-2px);
+        }
+        footer {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            text-align: center;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            background-color: #333;
+            color: #fff;
+            padding: 10px 0;
+        }
+    </style>
+</head>
+<body style="opacity: 0;">
+    <div class="container">
+        <h1>WELCOME!</h1>
+        <p>Congratulations! You have successfully logged in.</p>
+        <!-- Button to redirect to another website -->
+        <button onclick="redirectToWebsite()">Go to Website</button>
+    </div>
+
+    <!-- Footer Section -->
+    <footer>
+        Submitted by: John Carlo A. Reyes <br>
+        Course, Year and Section: BSIT 3-4 <br>
+        Submitted to: Montaigne Molejon
+    </footer>
+
+    <script>
+        // Fade-in effect
+        document.body.style.transition = 'opacity 1s ease';
+        document.body.style.opacity = '1';
+        
+        // Function to redirect to another website
+        function redirectToWebsite() {
+            window.location.href = 'https://www.pup.edu.ph/';
+        }
+    </script>
+</body>
+</html>
