@@ -147,7 +147,12 @@
         // Event listener for user registration
         registerBtn.addEventListener('click', () => {
             const username = prompt('Enter a username:');
+            // If user cancels the prompt, do nothing
+            if (username === null) return;
+            
             const password = prompt('Enter a password:');
+            // If user cancels the prompt, do nothing
+            if (password === null) return;
 
             // Stores username and password
             localStorage.setItem('username', username);
@@ -162,12 +167,17 @@
                 return;
             }
 
+            const enteredUsername = prompt('Enter your username:');
+            // If user cancels the prompt, do nothing
+            if (enteredUsername === null) return;
+
+            const enteredPassword = prompt('Enter your password:');
+            // If user cancels the prompt, do nothing
+            if (enteredPassword === null) return;
+
             // Retrieve stored username and password
             const storedUsername = localStorage.getItem('username');
             const storedPassword = localStorage.getItem('password');
-            // Prompt user for username and password
-            const enteredUsername = prompt('Enter your username:');
-            const enteredPassword = prompt('Enter your password:');
 
             // Check if the entered data match in stored data
             if (enteredUsername === storedUsername && enteredPassword === storedPassword) {
@@ -175,7 +185,7 @@
                 document.body.style.opacity = '0';
                 setTimeout(() => {
                     // Redirect to welcome page
-                    window.location.href = 'https://heyygusi.github.io/ProjectCode/Welcome.html';
+                    window.location.href = 'Welcome.html';
                 }, 1000);
             } else {
                 attempts--;
